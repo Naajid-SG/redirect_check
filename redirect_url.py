@@ -28,7 +28,6 @@ for domain in domain_list:
     except BaseException as E:
         result = E
 
-    result = result.decode('utf8')
     conn.execute(
                 'insert ignore into redirect_url (Domain, redirected_to)  values(%s,%s)', (domain,result))
 
