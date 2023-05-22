@@ -9,11 +9,12 @@ engine = create_engine("mysql+pymysql://{user}:{pw}@database-1.cluster-ro-ct2brv
 conn = engine.connect()
 print("Success Connection")
 
-df = pd.read_excel("DomainsToScrape.xlsx")
+df = pd.read_csv("meta_all_domains_distinct.csv")
+domain_list = df['Domain'].tolist()
 
 # -------------------------------------------------------------------------------- NOTEBOOK-CELL: CODE
 c=0
-for indx,row in df[:10].iterrows():
+for domain in domain_list:
     try:
         result = subprocess.check_output([
             'curl',
@@ -22,7 +23,7 @@ for indx,row in df[:10].iterrows():
             '%{url_effective}',
             '-o',
             '/dev/null',
-            row.Domain
+            domain
         ])
     except BaseException as E:
         result = E
