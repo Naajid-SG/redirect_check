@@ -30,7 +30,7 @@ for domain in domain_list:
 
  
     conn.execute(
-                'insert ignore into redirect_url (Domain, redirected_to)  values(%s,%s)', (row.Domain,result.decode('utf8')))
+                'insert ignore into redirect_url (Domain, redirected_to)  values(%s,%s)', (domain,result.decode('utf8')))
 
     c+=1
     print(result)
