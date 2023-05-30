@@ -10,7 +10,7 @@ from sqlalchemy import create_engine
 df1 = pd.read_csv("meta_all_domains_distinct.csv")
 df2 = pd.read_csv("redirect_domains.csv")
 
-df3 = df1[~df1['Domain'].isin(df2['Domain'])]
+df3 = df1[~df1['Domain'].isin(df2['domain'])]
 
 domain_list = df3['Domain'].tolist()
 del df1, df2, df3
