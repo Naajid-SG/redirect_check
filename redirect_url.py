@@ -7,8 +7,12 @@ from sqlalchemy import create_engine
 
 # print("Success Connection")
 
-df = pd.read_csv("meta_all_domains_distinct.csv")
-domain_list = df['Domain'].tolist()
+df1 = pd.read_csv("meta_all_domains_distinct.csv")
+df2 = pd.read_csv("redirect_domains.csv")
+
+df3 = df1[~df1['domain'].isin(df2['domain'])]
+
+domain_list = df3['Domain'].tolist()
 
 # -------------------------------------------------------------------------------- NOTEBOOK-CELL: CODE
 c=0
