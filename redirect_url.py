@@ -4,10 +4,8 @@ import subprocess
 from sqlalchemy import create_engine
 
 
-engine = create_engine("mysql+pymysql://{user}:{pw}@database-1.cluster-ro-ct2brvwy8za8.us-east-1.rds.amazonaws.com/{db}"
-                        .format(user="admin",pw="d5Sj5U7lZqwNYsqRjhJI", db="datacollection"))
-conn = engine.connect()
-print("Success Connection")
+
+# print("Success Connection")
 
 df = pd.read_csv("meta_all_domains_distinct.csv")
 domain_list = df['Domain'].tolist()
@@ -27,10 +25,13 @@ for domain in domain_list:
         ])
     except BaseException as E:
         result = E
-
+    engine = create_engine("mysql+pymysql://{user}:{pw}@database-1.cluster-ro-ct2brvwy8za8.us-east-1.rds.amazonaws.com/{db}"
+                        .format(user="admin",pw="d5Sj5U7lZqwNYsqRjhJI", db="datacollection"))
+    conn = engine.connect()
     conn.execute(
                 'insert ignore into redirect_url (Domain, redirected_to)  values(%s,%s)', (domain,result))
-
+    
+    conn.close()
     c+=1
     print(result)
     print(c, end = "")
