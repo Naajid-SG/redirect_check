@@ -27,7 +27,7 @@ for domain in domain_list:
             '-o',
             '/dev/null',
             domain
-        ])
+        ], timeout=60)
     except BaseException as E:
         result = E
     engine = create_engine("mysql+pymysql://{user}:{pw}@database-1.cluster-ro-ct2brvwy8za8.us-east-1.rds.amazonaws.com/{db}"
